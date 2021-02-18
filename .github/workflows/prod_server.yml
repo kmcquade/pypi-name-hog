@@ -25,7 +25,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git fetch --tags
           git pull origin main
-          python -m pypi_typosquatter.py --input-file $INPUT_FILE --server $PYPI_SERVER --password $TWINE_PASSWORD
+          python -m pypi_squat.py --input-file $INPUT_FILE --server $PYPI_SERVER --password $TWINE_PASSWORD
         with:
           TWINE_PASSWORD: ${{ secrets.PYPI_PROD_PASSWORD }}
           PYPI_SERVER: "https://upload.pypi.org/legacy/"

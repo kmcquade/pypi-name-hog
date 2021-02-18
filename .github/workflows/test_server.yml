@@ -25,8 +25,8 @@ jobs:
           git config --local user.name "GitHub Action"
           git fetch --tags
           git pull origin main
-          python -m pypi_typosquatter.py --input-file $INPUT_FILE --server $PYPI_SERVER --password $TWINE_PASSWORD
+          python -m pypi_squat.py --input-file $INPUT_FILE --server $PYPI_SERVER --password $TWINE_PASSWORD
         env:
           TWINE_PASSWORD: ${{ secrets.PYPI_TEST_PASSWORD }}
           PYPI_SERVER: "https://test.pypi.org/legacy/"
-          INPUT_FILE: "package_names_prod.yml"
+          INPUT_FILE: "package_names.yml"
