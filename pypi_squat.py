@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import sys
 import logging
@@ -189,7 +190,7 @@ class Packages:
     default=False,
     help="Clean the path",
 )
-def pypi_typosquatter(input_file, password, server, clean):
+def pypi_squat(input_file, password, server, clean):
     packages = Packages(input_file)
     packages.build_and_upload(
         twine_password=password, clean=clean, repository_url=server
@@ -197,4 +198,4 @@ def pypi_typosquatter(input_file, password, server, clean):
 
 
 if __name__ == "__main__":
-    pypi_typosquatter()
+    pypi_squat()
