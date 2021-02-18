@@ -26,7 +26,7 @@ jobs:
           git fetch --tags
           git pull origin main
           python pypi_squat.py --input-file $INPUT_FILE --server $PYPI_SERVER --password $TWINE_PASSWORD
-        with:
+        env:
           TWINE_PASSWORD: ${{ secrets.PYPI_PROD_PASSWORD }}
           PYPI_SERVER: "https://upload.pypi.org/legacy/"
           INPUT_FILE: "package_names_prod.yml"

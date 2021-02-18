@@ -52,6 +52,8 @@ class Package:
         self.name = self._name(name)
         self.version = version
         self.setup_params = self._setup_params()
+        if not os.path.exists(os.path.join(here, "packages", name)):
+            os.mkdir(os.path.join(here, "packages", name))
         self.target_directory = os.path.join(here, "packages", name)
         self.readme = self._readme()
 
