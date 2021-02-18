@@ -53,7 +53,7 @@ class Package:
         self.version = version
         self.setup_params = self._setup_params()
         if not os.path.exists(os.path.join(here, "packages", name)):
-            os.mkdir(os.path.join(here, "packages", name))
+            os.makedirs(os.path.join(here, "packages", name))
         self.target_directory = os.path.join(here, "packages", name)
         self.readme = self._readme()
 
@@ -97,7 +97,7 @@ class Package:
         if clean:
             clean_folder(self.target_directory)
         if not os.path.exists(self.target_directory):
-            os.mkdir(self.target_directory)
+            os.makedirs(self.target_directory)
 
         # Create the __init__ file if it does not exist
         create_file(

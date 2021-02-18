@@ -67,3 +67,4 @@ packer_cache/
 
 # Project specific
 packages/*
+!packages/.gitkeep
