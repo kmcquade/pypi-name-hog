@@ -118,7 +118,7 @@ class Package:
             "__token__",
             "--password",
             twine_password,
-            f"{str(self.target_directory)}/dist/*",
+            f"{str(os.path.abspath(self.target_directory))}/dist/*",
         ]
         try:
             twine_cli.dispatch(command)
