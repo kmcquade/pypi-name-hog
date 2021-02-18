@@ -1,0 +1,32 @@
+name: test-server
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  hog_test_names:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: create python package
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git fetch --tags
+          git pull origin main
+          python -m pypi_typosquatter.py --input-file $INPUT_FILE --server $PYPI_SERVER --password $TWINE_PASSWORD
+        env:
+          TWINE_PASSWORD: ${{ secrets.PYPI_TEST_PASSWORD }}
+          PYPI_SERVER: "https://test.pypi.org/legacy/"
+          INPUT_FILE: "package_names_prod.yml"
