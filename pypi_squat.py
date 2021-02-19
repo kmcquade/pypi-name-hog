@@ -55,6 +55,7 @@ class Package:
         if not os.path.exists(os.path.join(here, "packages", name)):
             os.makedirs(os.path.join(here, "packages", name))
         self.target_directory = os.path.join(here, "packages", name)
+        print(f"Target directory: {self.target_directory}")
         self.readme = self._readme()
 
     def _name(self, name) -> str:
@@ -94,10 +95,6 @@ class Package:
         clean: bool = True,
         repository_url: str = "https://test.pypi.org/legacy/",
     ):
-        if clean:
-            clean_folder(self.target_directory)
-        if not os.path.exists(self.target_directory):
-            os.makedirs(self.target_directory)
 
         # Create the __init__ file if it does not exist
         create_file(
