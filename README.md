@@ -31,9 +31,46 @@ Since we are all Senior YAML engineers at this point, I thought it would be grea
 
 If I feel like using one of the names, then I can remove it from the `package_names.yml` file (to avoid duplicate uploads and failed upload events) and then automate the package upload process from wherever my new tool lives.
 
+## Instructions
+
+* Fork this repository
+
+* Create a PyPI API token so you will be able to securely upload your project by following the steps below.
+
+* Go to [https://test.pypi.org/manage/account/#api-tokens](https://test.pypi.org/manage/account/#api-tokens) and create a new API token. The button is shown in the screenshot below.
+
+<p align="center">
+  <img src="docs/images/add-api-token.png">
+</p>
+
+* When you select the token scope - don’t limit its scope to a particular project, since you are creating a new project. See the screenshot below.
+
+<p align="center">
+  <img src="docs/images/token-scope.png">
+</p>
+
+* Don’t close the page until you have copied and saved the token — you won’t see that token again.
+
+* Go back to the GitHub repository. Navigate to `Settings` -> `Secrets` -> `New repository secret`. Each of the fields are shown in the image below.
+
+<p align="center">
+  <img src="docs/images/new-repository-secret.png">
+</p>
+
+* Name the secret `PYPI_TEST_PASSWORD`. For the secret value, get the token string that you got from [https://test.pypi.org/manage/account/#api-tokens](https://test.pypi.org/manage/account/#api-tokens) and paste it into the field, and hit save.
+* Follow the same steps for the Production secret, but with the following values:
+  - URL: [https://pypi.org/manage/account/#api-tokens](https://pypi.org/manage/account/#api-tokens)
+  - Secret name: `PYPI_PROD_PASSWORD`
+
+* Edit the package_names.yml for the test server and package_names_prod.yml to hog namespaces on the prod server.
+
+```
+TODO: Describe this more later
+```
 
 # References
 
 * [Packaging Tutorial](https://packaging.python.org/tutorials/packaging-projects/)
 * [SetupTools source code](https://github.com/pypa/setuptools/tree/main/setuptools)
 * [Twine source code](https://github.com/pypa/twine/)
+* [Uploading Distribution archives](https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives)
