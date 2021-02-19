@@ -78,8 +78,8 @@ names:
 ```
 
 * Commit your changes.
-* To validate your name on the pypi.org server, search for the project name here: https://pypi.org/project
-* To validate your name on the test.pypi.org server, search for the project name here: https://test.pypi.org/project
+* To validate your name on the [pypi.org](https://pypi.org/project) server, search for the project name here: [https://pypi.org/project](https://pypi.org/project)
+* To validate your name on the [test.pypi.org](https://test.pypi.org/project) server, search for the project name here: [https://test.pypi.org/project](https://test.pypi.org/project)
 
 * Now, whenever you have a great name idea and want to get first dibs on the name in PyPi before someone else gets it, just edit the YAML file and it should take the space for you!
 
