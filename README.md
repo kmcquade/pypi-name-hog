@@ -2,7 +2,7 @@
 
 ~~Hog all the good PyPi package names~~ Get first dibs on PyPi package names by uploading dummy packages to the desired package namespaces  specified in a YAML file.
 
-The following package_names.yml will create two packages in pypi.org's Python Package Index, so you get first dibs on the names. The names of the packages will be `tralala` and `tralala2`.
+The following `package_names_prod.yml` will create two packages in pypi.org's Python Package Index, so you get first dibs on the names. The names of the packages will be `tralala` and `tralala2`.
 
 ```yaml
 names:
@@ -27,9 +27,9 @@ The typical process of taking up space on PyPi (the Python package server) is as
 
 If you write python packages regularly - or if you just want to claim a name on the server to get first dibs on a potential sweet name - then you might be discouraged from doing that because you need to check your notes and follow this process.
 
-Since we are all Senior YAML engineers at this point, I thought it would be great to skip this process by ~~hogging all the good names~~ noting my name ideas in a YAML file (called `package_names.yml`, and then have GitHub actions take care of the rest for me.
+Since we are all Senior YAML engineers at this point, I thought it would be great to skip this process by ~~hogging all the good names~~ noting my name ideas in a YAML file (called `package_names_prod.yml`, and then have GitHub actions take care of the rest for me.
 
-If I feel like using one of the names, then I can remove it from the `package_names.yml` file (to avoid duplicate uploads and failed upload events) and then automate the package upload process from wherever my new tool lives.
+If I feel like using one of the names, then I can remove it from the `package_names_prod.yml` file (to avoid duplicate uploads and failed upload events) and then automate the package upload process from wherever my new tool lives.
 
 ## Instructions
 
@@ -62,11 +62,26 @@ If I feel like using one of the names, then I can remove it from the `package_na
   - URL: [https://pypi.org/manage/account/#api-tokens](https://pypi.org/manage/account/#api-tokens)
   - Secret name: `PYPI_PROD_PASSWORD`
 
-* Edit the package_names.yml for the test server and package_names_prod.yml to hog namespaces on the prod server.
+* To hog names in the test.pypi.org server, edit the `package_names_test.yml` file:
 
+```yaml
+names:
+  - tralala
+  - tralala2
 ```
-TODO: Describe this more later
+* To hog names in the pypi.org server, edit the `package_names_prod.yml` file:
+
+```yaml
+names:
+  - goonsquad
+  - tralala
 ```
+
+* Commit your changes.
+* To validate your name on the pypi.org server, search for the project name here: https://pypi.org/project
+* To validate your name on the test.pypi.org server, search for the project name here: https://test.pypi.org/project
+
+* Now, whenever you have a great name idea and want to get first dibs on the name in PyPi before someone else gets it, just edit the YAML file and it should take the space for you!
 
 # References
 

@@ -14,18 +14,10 @@ logger = logging.getLogger(__name__)
 here = os.path.dirname(__file__)
 
 
-def set_stream_logger(name="endgame", level=logging.DEBUG, format_string=None):
+def set_stream_logger(name="pypi_name_hog", level=logging.DEBUG, format_string=None):
     """
     Add a stream handler for the given name and level to the logging module.
-    By default, this logs all endgame messages to ``stdout``.
-        >>> import pypi_squat
-        >>> pypi_squat.set_stream_logger('pypy_squat', logging.INFO)
-    :type name: string
-    :param name: Log name
-    :type level: int
-    :param level: Logging level, e.g. ``logging.INFO``
-    :type format_string: str
-    :param format_string: Log message format
+    By default, this logs all pypi_name_hog messages to ``stdout``.
     """
     # remove existing handlers. since NullHandler is added by default
     handlers = logging.getLogger(name).handlers
@@ -33,7 +25,6 @@ def set_stream_logger(name="endgame", level=logging.DEBUG, format_string=None):
         logging.getLogger(name).removeHandler(handler)
     if format_string is None:
         format_string = "%(asctime)s %(name)s [%(levelname)s] %(message)s"
-    logger = logging.getLogger(name)
     logger.setLevel(level)
     handler = logging.StreamHandler()
     handler.setLevel(level)
@@ -78,7 +69,6 @@ class Package:
         if not os.path.exists(os.path.join(here, "packages", name)):
             os.makedirs(os.path.join(here, "packages", name))
         self.target_directory = os.path.abspath(os.path.join(here, "packages", name))
-        # print(f"Target directory: {os.path.abspath(self.target_directory)}")
         print(f"Target directory: {self.target_directory}")
         self.readme = self._readme()
 
@@ -131,8 +121,6 @@ class Package:
         # Change to the target directory and generate the build artifacts
         print(f"Changing directory to {self.target_directory}")
         print(f"Dist path: {self.target_directory}/dist/*")
-        # print("Abspath: ")
-        # print(f"{str(os.path.abspath(self.target_directory))}/dist/*")
         os.chdir(self.target_directory)
         dist = setuptools.setup(**self.setup_params)
         command = [
@@ -190,7 +178,7 @@ class Packages:
 @click.option(
     "--input-file",
     type=click.Path(exists=True),
-    default=os.path.join(os.getcwd(), "package_names.yml"),
+    default=os.path.join(os.getcwd(), "package_names_test.yml"),
     help="Path to the file containing the packages.",
 )
 @click.option(
@@ -217,7 +205,7 @@ class Packages:
     default=False,
     help="Clean the path",
 )
-def pypi_squat(input_file, password, server, clean):
+def pypi_name_hog(input_file, password, server, clean):
     set_stream_logger("twine", level=logging.DEBUG)
     set_stream_logger("setuptools", level=logging.DEBUG)
     set_stream_logger("wheel", level=logging.DEBUG)
@@ -228,4 +216,4 @@ def pypi_squat(input_file, password, server, clean):
 
 
 if __name__ == "__main__":
-    pypi_squat()
+    pypi_name_hog()
