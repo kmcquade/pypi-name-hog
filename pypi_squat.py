@@ -12,11 +12,34 @@ from random_word import RandomWords
 
 logger = logging.getLogger(__name__)
 here = os.path.dirname(__file__)
-logger.setLevel(logging.WARNING)
-handler = logging.StreamHandler(sys.stdout)
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+
+
+def set_stream_logger(name="endgame", level=logging.DEBUG, format_string=None):
+    """
+    Add a stream handler for the given name and level to the logging module.
+    By default, this logs all endgame messages to ``stdout``.
+        >>> import pypi_squat
+        >>> pypi_squat.set_stream_logger('pypy_squat', logging.INFO)
+    :type name: string
+    :param name: Log name
+    :type level: int
+    :param level: Logging level, e.g. ``logging.INFO``
+    :type format_string: str
+    :param format_string: Log message format
+    """
+    # remove existing handlers. since NullHandler is added by default
+    handlers = logging.getLogger(name).handlers
+    for handler in handlers:
+        logging.getLogger(name).removeHandler(handler)
+    if format_string is None:
+        format_string = "%(asctime)s %(name)s [%(levelname)s] %(message)s"
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    handler = logging.StreamHandler()
+    handler.setLevel(level)
+    formatter = logging.Formatter(format_string)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
 
 def read_yaml_file(filename):
@@ -54,7 +77,8 @@ class Package:
         self.setup_params = self._setup_params()
         if not os.path.exists(os.path.join(here, "packages", name)):
             os.makedirs(os.path.join(here, "packages", name))
-        self.target_directory = os.path.join(here, "packages", name)
+        self.target_directory = os.path.abspath(os.path.join(here, "packages", name))
+        # print(f"Target directory: {os.path.abspath(self.target_directory)}")
         print(f"Target directory: {self.target_directory}")
         self.readme = self._readme()
 
@@ -105,10 +129,11 @@ class Package:
             path=os.path.join(self.target_directory, "README.md"), content=self.readme
         )
         # Change to the target directory and generate the build artifacts
-        os.chdir(self.target_directory)
         print(f"Changing directory to {self.target_directory}")
-        print("Abspath: ")
-        print(f"{str(os.path.abspath(self.target_directory))}/dist/*")
+        print(f"Dist path: {self.target_directory}/dist/*")
+        # print("Abspath: ")
+        # print(f"{str(os.path.abspath(self.target_directory))}/dist/*")
+        os.chdir(self.target_directory)
         dist = setuptools.setup(**self.setup_params)
         command = [
             "upload",
@@ -118,7 +143,7 @@ class Package:
             "__token__",
             "--password",
             twine_password,
-            f"./dist/*",
+            f"{self.target_directory}/dist/*",
         ]
         try:
             twine_cli.dispatch(command)
@@ -193,6 +218,9 @@ class Packages:
     help="Clean the path",
 )
 def pypi_squat(input_file, password, server, clean):
+    set_stream_logger("twine", level=logging.DEBUG)
+    set_stream_logger("setuptools", level=logging.DEBUG)
+    set_stream_logger("wheel", level=logging.DEBUG)
     packages = Packages(input_file)
     packages.build_and_upload(
         twine_password=password, clean=clean, repository_url=server
