@@ -106,6 +106,9 @@ class Package:
         )
         # Change to the target directory and generate the build artifacts
         os.chdir(self.target_directory)
+        print(f"Changing directory to {self.target_directory}")
+        print("Abspath: ")
+        print(f"{str(os.path.abspath(self.target_directory))}/dist/*")
         dist = setuptools.setup(**self.setup_params)
         command = [
             "upload",
