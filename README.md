@@ -1,4 +1,4 @@
-# pypi-hogger
+# pypi-name-hog
 
 ~~Hog all the good PyPi package names~~ Get first dibs on PyPi package names by uploading dummy packages to the desired package namespaces  specified in a YAML file.
 
