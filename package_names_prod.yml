@@ -2,4 +2,5 @@ names:
   - goonsquad
   - tralala
   - rapid_client # AWS, holler back at me if you want me to give this namespace to you
-  - cloud-guardrails
+  - lambda-builder
+  - lambda-zipper
