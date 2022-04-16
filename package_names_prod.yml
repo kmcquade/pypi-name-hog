@@ -4,7 +4,14 @@ names:
   - rapid_client # AWS, holler back at me if you want me to give this namespace to you
   - lambda-builder
   - lambda-zipper
+  - lambda-manager
   - xena
+  - zap-automation-renderer
   - nimblr
   - nimbler
-  - zap-automation-renderer
+  - nimblr-cli
+  - nimbler-cli
+  - nimblr-api
+  - nimbler-api
+  
+  
